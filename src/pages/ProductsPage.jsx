@@ -4,7 +4,7 @@ import ProductsList from '../components/ProductsList'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  border: 2px solid red;
+  ${'' /* border: 2px solid red; */}
   padding: 2rem 1rem;
   display: flex;
   ${'' /* justify-content: space-between; */}
@@ -19,19 +19,21 @@ const Heading = styled.h2`
 `;
 
 const Sidebar = styled.aside`
-  border: 2px solid green;
+  ${'' /* border: 2px solid green; */}
   width: 240px;
   position: relative;
 `;
 
 const SidebarMenu = styled.div`
-  border: 2px solid pink;
-  position: fixed;
-  padding-top: 2rem;
+  ${'' /* border: 2px solid pink; */}
+  position: sticky;
+  top: 5rem;
+  padding: 1rem;
+  border-radius: 0.25rem;
 `;
 
 const ProductsContainer = styled.div`
-  border: 2px solid green;
+  ${'' /* border: 2px solid green; */}
   display: flex;
   justify-content: center;
   ${'' /* width: 100vw; */}
@@ -41,25 +43,26 @@ const ProductsContainer = styled.div`
 const ProductsPage = () => {
   return (
     <>
-    <Navbar />
-    <Heading>RESULTS</Heading>
-    <Container>
-    <Sidebar>
-    <SidebarMenu>
-    <h3>Sort Type</h3>
-    <h4>Ascending</h4> 
-    <h4>Descending</h4>
-    <h3>Sort by</h3>
-    <h4>Price</h4> 
-    <h4>Rating</h4>
-    <h4>Number of Ratings</h4>
-    </SidebarMenu>
-    </Sidebar>
-    <ProductsContainer>
-    <ProductsList />
-    </ProductsContainer>
-    </Container>
-    <Footer />
+      <Navbar />
+      <Heading>RESULTS</Heading>
+      <Container>
+        <Sidebar>
+          <SidebarMenu>
+            <h3>Sort Type</h3>
+            <p>Ascending</p>
+            <p>Descending</p>
+            <br />
+            <h3>Sort by</h3>
+            <p>Price</p>
+            <p>Rating</p>
+            <p>Number of Ratings</p>
+          </SidebarMenu>
+        </Sidebar>
+        <ProductsContainer>
+          <ProductsList />
+        </ProductsContainer>
+      </Container>
+      <Footer />
     </>
   )
 }

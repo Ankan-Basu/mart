@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import colors from './colors';
 
 const ProductContainer = styled.div`
   width: 300px;
@@ -73,6 +74,12 @@ const Button = styled.button`
   justify-self: flex-end;
   font-size 18px;
   padding: 0.25rem;
+
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  background-color: ${colors.orange6};
+  color: white;
 `;
 
 const Product = ({pdt}) => {

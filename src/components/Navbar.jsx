@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import colors from './colors';
 
 const NavbarContainer = styled.nav`
   display: flex;
@@ -20,16 +21,18 @@ const NavbarContainer = styled.nav`
   -webkit-filter: blur(8px); */}
 `;
 
-const Logo = styled.div`
+const Logo = styled.h2`
   flex: 1;
   z-index: 11;
+  letter-spacing: 0.25rem;
 `;
 
 const SearchBarContainer = styled.div`
   display: flex;
-  border: 2px solid green;
+  ${'' /* border: 2px solid green; */}
   flex: 2;
   z-index: 11;
+  gap: 0.25rem;
 `;
 
 const Menu = styled.div`
@@ -41,25 +44,49 @@ const Menu = styled.div`
 `;
 
 const Button = styled.button`
-  padding: 0.2rem;
+  padding: 0.25rem;
   border-radius: 50%;
   border: none;
   z-index: 13;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.orange2};
+  cursor: pointer;
+`;
+
+const Input = styled.input`
+  flex: 1;
+  ${'' /* width: "100%"; */}
+  border-radius: 0.25rem;
+  border: none;
+  outline: none;
+  background-color: ${colors.orange2};
+  padding: 0.25rem;
+`;
+
+const SearchButton = styled.button`
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  background-color: ${colors.orange6};
+  color: white;
 `;
 
 const Navbar = () => {
   return (
     <NavbarContainer>
       <Logo>
-        Mart.
+        Mart<span style={{color: 'red'}}>.</span>
       </Logo>
 
       <SearchBarContainer>
       {/* <form> */}
-        <input type="text" placeholder="search" style={{width: "100%"}}/>
-        <button>
+        <Input type="text" placeholder="Search"/>
+        <SearchButton>
           <SearchIcon />
-        </button>
+        </SearchButton>
         {/* </form> */}
       </SearchBarContainer>
       <Menu>

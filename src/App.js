@@ -1,7 +1,6 @@
-import Home from './pages/Home';
 import './App.css';
-import Product from './components/Product';
-import ProductsList from './components/ProductsList';
+import CartItem from './components/CartItem';
+import Cart from './pages/Cart';
 import ProductsPage from './pages/ProductsPage';
 
 
@@ -10,6 +9,11 @@ function App() {
     <div className="App">
       {/* <Home /> */}
       <ProductsPage />
+      {/* <Cart /> */}
+      {/* <ItemList /> */}
+      {/* <Total /> */}
+      {/* <CartItem /> */}
+    
     </div>
   );
 }
