@@ -1,5 +1,11 @@
-import React from 'react'
-import CartItem from './CartItem'
+import styled from 'styled-components';
+import CartItem from './CartItem';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10 rem;
+`;
 
 const ItemList = () => {
   let pdtArray = [
@@ -245,12 +251,12 @@ const ItemList = () => {
     }
   ];
   return (
-    <div>
+    <Container>
     {pdtArray.map((pdt) => {
       return <CartItem pdt={pdt}/>
     })}
     
-    </div>
+    </Container>
   )
 }
 

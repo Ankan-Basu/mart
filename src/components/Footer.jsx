@@ -7,6 +7,8 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
+import colors from './colors';
+import {Link} from 'react-router-dom';
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -72,12 +74,24 @@ const List = styled.ul`
   gap: 0.25rem;
 `;
 
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:hover{
+    color: ${colors.orange6};
+  }
+  &:active {
+    color: ${colors.orange8};
+  }
+`;
+
+
 const Footer = () => {
   return (
     <FooterContainer>
       <Left>
         <Logo>
-          MART<span style={{color: 'red'}}>.</span>
+          MART<span style={{color: 'red', fontWeight: '600'}}>.</span>
         </Logo>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, nihil natus? Saepe quas quibusdam mollitia consequuntur deserunt 
@@ -85,24 +99,24 @@ const Footer = () => {
       </Left>
 
       <Center>
-        <h3 style={{padding:'0', margin:'0'}}>Useful Links</h3>
+        <h3 style={{padding:'0', margin:'0', fontWeight: '600'}}>Useful Links</h3>
         <List>
-        <li>Home</li>
-        <li>All Categories</li>
-        <li>Electronics</li>
-        <li>Jewelery</li>
-        <li>Men's clothing</li>
-        <li>Women's clothing</li>
-        <li>View Cart</li>
-        <li>Report a problem</li>
+        <li><CustomLink to='/'>Home</CustomLink></li>
+        <li><CustomLink to='/all'>All Categories</CustomLink></li>
+        <li><CustomLink to='/electronics'>Electronics</CustomLink></li>
+        <li><CustomLink to='/jewelery'>Jewelery</CustomLink></li>
+        <li><CustomLink to='/mens'>Men's clothing</CustomLink></li>
+        <li><CustomLink to='/womens'>Women's clothing</CustomLink></li>
+        <li><CustomLink to='/cart'>View Cart</CustomLink></li>
+        <li><CustomLink to='/#'>Report a problem</CustomLink></li>
         </List>
       </Center>
 
       <Right>
-        <h3>Contact Us</h3>
-        <Para><LocationOnIcon /> Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, nihil natus? Saepe</Para>
-        <Para><EmailIcon /> email@contact.com</Para>
-        <Para><PhoneIcon />00 0000 0000</Para>
+        <h3 style={{fontWeight: '600'}}>Contact Us</h3>
+        <Para><LocationOnIcon style={{color: colors.orange6}} /> <CustomLink to='#'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, nihil natus? Saepe</CustomLink></Para>
+        <Para><EmailIcon style={{color: colors.orange6}} /> <CustomLink to='#'>email@contact.com</CustomLink></Para>
+        <Para><PhoneIcon style={{color: colors.orange6}} /><CustomLink to='#'>00 0000 0000</CustomLink></Para>
         <SocialLinks>
         <IconContainer color='#4267B2'>
         <FacebookIcon style={{color:"white"}} />

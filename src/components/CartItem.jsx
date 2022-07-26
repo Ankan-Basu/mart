@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import colors from './colors';
+import {Link} from 'react-router-dom';
 
 const ItemContainer = styled.div`
   border: 2px solid blue;
@@ -9,6 +10,7 @@ const ItemContainer = styled.div`
   padding: 0.75rem;
   width: 700px;
   border-radius: 0.25rem;
+  margin: 0 0 1rem 0;
 `;
 
 const Img = styled.img`
@@ -19,7 +21,7 @@ const Img = styled.img`
 `;
 
 const Desc = styled.div`
-border: 2px solid red;
+${'' /* border: 2px solid red; */}
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -29,6 +31,7 @@ border: 2px solid red;
 
 const Title = styled.h4`
   ${'' /* border: 2px solid yellow; */}
+  font-weight: 500;
 `;
 
 const Options = styled.div`
@@ -52,6 +55,7 @@ const Button = styled.button`
   background-color: ${colors.orange6};
   color: white;
   align-self: stretch;
+  font-weight: 500;
 `;
 
 const Input = styled.input`
@@ -69,14 +73,14 @@ const DeleteButton = styled.button`
   padding: 0.25rem 0.5rem;
   border: none;
   border-radius: 0.25rem;
-  background-color: red;
+  background-color: #d32f2f;
   color: white;
   font-weight: 500;  
 
 `;
 
 const Price = styled.div`
-  border: 2px solid pink;
+  ${'' /* border: 2px solid pink; */}
 `;
 
 
@@ -98,7 +102,9 @@ const CartItem = ({pdt}) => {
     <ItemContainer>
     <Img src={pdt.image} />
     <Desc>
-      <Title>{pdt.title}</Title>
+      <Title>
+      <Link to='#'>{pdt.title}</Link>
+      </Title>
       <Options>
       <Quantity>
        Qty:<span style={{padding: '0.5rem'}}></span>
@@ -106,12 +112,13 @@ const CartItem = ({pdt}) => {
         <Input type="number" />
         <Button>+</Button>
         </Quantity>
-        <DeleteButton><DeleteOutlineOutlinedIcon /><b>Remove from Cart</b></DeleteButton>
+        <DeleteButton><DeleteOutlineOutlinedIcon />Remove from Cart</DeleteButton>
       </Options>
     </Desc>
     <Price>
-
+      <h4 style={{fontWeight: 500}}>
       Subtotal
+      </h4>
       <div>200</div>
     </Price>
 

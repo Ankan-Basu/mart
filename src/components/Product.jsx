@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import colors from './colors';
+import {Link} from 'react-router-dom';
+import {linkStyle} from './style';
+// import colors from './colors';
 
 const ProductContainer = styled.div`
   width: 300px;
@@ -74,12 +77,24 @@ const Button = styled.button`
   justify-self: flex-end;
   font-size 18px;
   padding: 0.25rem;
+  font-weight: 500;
 
   border-radius: 0.25rem;
   border: none;
   cursor: pointer;
   background-color: ${colors.orange6};
   color: white;
+`;
+
+const CustomLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:hover{
+    color: ${colors.orange6};
+  }
+  &:active {
+    color: ${colors.orange8};
+  }
 `;
 
 const Product = ({pdt}) => {
@@ -102,10 +117,10 @@ const Product = ({pdt}) => {
     </ImgContainer>
     <TextContainer>
     <Details>
-    <Title>{pdt.title}</Title>
+    <Title><CustomLink to='#'>{pdt.title}</CustomLink></Title>
     <Price>${pdt.price}</Price>
     {/* <Desc>{pdt.description}</Desc> */}
-    <p>{pdt.category}</p>
+    <p><CustomLink to=''>{pdt.category}</CustomLink></p>
     <Rating>
     <Rate>{pdt.rating.rate} </Rate> 
     <Count>({pdt.rating.count} ratings)</Count>

@@ -16,6 +16,7 @@ const Container = styled.div`
 
 const Heading = styled.h2`
   padding: 2rem 0 0 1.5rem;
+  font-weight: 500;
 `;
 
 const Sidebar = styled.aside`
@@ -40,6 +41,7 @@ const ProductsContainer = styled.div`
   flex: 2;
 `;
 
+
 const ProductsPage = () => {
   return (
     <>
@@ -48,11 +50,11 @@ const ProductsPage = () => {
       <Container>
         <Sidebar>
           <SidebarMenu>
-            <h3>Sort Type</h3>
+            <h3 style={{fontWeight: '500'}}>Sort Type</h3>
             <p>Ascending</p>
             <p>Descending</p>
             <br />
-            <h3>Sort by</h3>
+            <h3 style={{fontWeight: '500'}}>Sort by</h3>
             <p>Price</p>
             <p>Rating</p>
             <p>Number of Ratings</p>

@@ -12,7 +12,9 @@ const TotalContainer = styled.div`
   width: 200px;
 `;
 
-const Heading = styled.h4``;
+const Heading = styled.h4`
+  font-weight: 500;
+`;
 
 const Val = styled.div`
   font-weight: 500;
@@ -52,6 +54,7 @@ const Button = styled.button`
   cursor: pointer;
   background-color: ${colors.orange6};
   color: white;
+  font-weight: 500;
 `;
 
 const Total = () => {
