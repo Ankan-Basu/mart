@@ -36,8 +36,6 @@ const TotalContainer = styled.div`
 
 
 const Cart = () => {
-  
-
   return (
     <>
     <Navbar />

@@ -117,7 +117,7 @@ const Product = ({pdt}) => {
     </ImgContainer>
     <TextContainer>
     <Details>
-    <Title><CustomLink to='#'>{pdt.title}</CustomLink></Title>
+    <Title><CustomLink to={`/products/${pdt.id}`}>{pdt.title}</CustomLink></Title>
     <Price>${pdt.price}</Price>
     {/* <Desc>{pdt.description}</Desc> */}
     <p><CustomLink to=''>{pdt.category}</CustomLink></p>

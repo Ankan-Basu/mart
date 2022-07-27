@@ -1,6 +1,10 @@
+import { useParams } from 'react-router-dom';
+import {useEffect} from 'react';
 import styled from 'styled-components';
 import colors from './colors';
 import Offers from './Offers';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectProduct } from '../redux/actions/pdtActions';
 
 const Container = styled.div`
   display: flex;
@@ -97,20 +101,25 @@ const Input = styled.input`
   background-color: ${colors.orange2};
 `;
 
-const ProductDetails = () => {
-  let pdt = {
-    "id": 1,
-    "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    "price": 109.95,
-    "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-    "category": "men's clothing",
-    "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-    "rating": {
-      "rate": 3.9,
-      "count": 120
-    }
-  };
 
+const ProductDetails = () => {
+  // let pdt = {
+  //   "id": 1,
+  //   "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+  //   "price": 109.95,
+  //   "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+  //   "category": "men's clothing",
+  //   "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+  //   "rating": {
+  //     "rate": 3.9,
+  //     "count": 120
+  //   }
+  // };
+
+  
+
+  let pdt = useSelector(state => state.product);
+ 
   return (
     <Container>
       <Left>

@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import colors from './colors';
 import {Link} from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, addToCartForDisplay } from '../redux/actions/pdtActions';
 
 const ItemContainer = styled.div`
   border: 2px solid blue;
@@ -85,6 +88,7 @@ const Price = styled.div`
 
 
 const CartItem = ({pdt}) => {
+  let cartPdt = pdt;
     // let pdt = {
     // "id": 1,
     // "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
@@ -97,13 +101,44 @@ const CartItem = ({pdt}) => {
     //   "count": 120
     // }};
 
+    // console.log(props);
+
+    let x = useSelector(state => state.cart);
+    console.log(x);
+    const dispatch = useDispatch();
+
+    const getCartData = async() => {
+      let URL = 'https://fakestoreapi.com/products/' + cartPdt.id;
+      let resp = await fetch(URL);
+      let pdt = await resp.json();
+      dispatch(addToCartForDisplay(pdt));
+    }
+
+    // let pdt1 = {id:'' ,
+    // "title": "",
+    // "price": '',
+    // "description": "",
+    // "category": "",
+    // "image": "",
+    // "rating": {
+    //   "rate": '',
+    //   "count": ''
+    // }}
+
+    useEffect (() => {
+      getCartData()
+    }, [])
   
+    let pdt1 = useSelector(state => state.tempCart)[0];
+    
   return (
     <ItemContainer>
-    <Img src={pdt.image} />
+    {!pdt1? <h1>Empty</h1>:
+    <>
+    <Img src={pdt1.image} />
     <Desc>
       <Title>
-      <Link to='#'>{pdt.title}</Link>
+      <Link to='#'>{pdt1.title}</Link>
       </Title>
       <Options>
       <Quantity>
@@ -121,6 +156,8 @@ const CartItem = ({pdt}) => {
       </h4>
       <div>200</div>
     </Price>
+    </>
+    }
 
     </ItemContainer>
   )

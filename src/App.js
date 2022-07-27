@@ -18,6 +18,7 @@ function App() {
       <Route path='/jewelery' element={<ProductsPage />}/>
       <Route path='/mens' element={<ProductsPage />}/>
       <Route path='/womens' element={<ProductsPage />}/>
+      <Route path='/products/:id' element={<IndividualProductPage />}/>
       <Route path='/cart' element={<Cart />}/>
 
     </Routes>
