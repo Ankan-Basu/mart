@@ -16,25 +16,40 @@ const Offer = styled.div`
 `;
 
 let offersArr = [
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt sapien ',
-'In vel est blandit, bibendum arcu eget, sodales justo. Donec sit amet magna ac sapien porta pharetra.',
-'Aliquam erat volutpat. Proin suscipit leo in pellentesque posuere. Fusce elit enim, facilisis',
-'Nam at tempus diam Vestibulum lectus odio, tincidunt eu condimentum efficitur, tincidunt hendrerit', 
-'Justo dui gravida est, commodo sollicitudin dolor massa id odio. Donec diam augue, facilisis ut libero'
+  {
+    id: 0,
+    data: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tincidunt sapien '
+  },
+  {
+    id: 1,
+    data: 'In vel est blandit, bibendum arcu eget, sodales justo. Donec sit amet magna ac sapien porta pharetra.'
+  },
+  {
+    id: 2,
+    data: 'Aliquam erat volutpat. Proin suscipit leo in pellentesque posuere. Fusce elit enim, facilisis'
+  },
+  {
+    id: 3,
+    data: 'Nam at tempus diam Vestibulum lectus odio, tincidunt eu condimentum efficitur, tincidunt hendrerit'
+  },
+  {
+    id: 4,
+    data: 'Justo dui gravida est, commodo sollicitudin dolor massa id odio. Donec diam augue, facilisis ut libero'
+  }
 ];
 
 const Offers = () => {
   return (
     <>
-    <Heading>Offers: </Heading>
-    {offersArr.map((offer) => {
-      return (
-        <Offer>
-      <SellIcon style={{color: colors.orange6}}/>{offer}
-    </Offer>
-      )
-    })}
-    
+      <Heading>Offers: </Heading>
+      {offersArr.map((offer) => {
+        return (
+          <Offer key={offer.id}>
+            <SellIcon style={{ color: colors.orange6 }} />{offer.data}
+          </Offer>
+        )
+      })}
+
     </>
   )
 }

@@ -2,9 +2,10 @@ import styled from 'styled-components';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import colors from './colors';
 import {Link} from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, addToCartForDisplay } from '../redux/actions/pdtActions';
+import { useDispatch } from 'react-redux';
+import { deleteFromCart } from '../redux/actions/pdtActions';
+import QuantityDisplayer from './QuantityDisplayer';
+
 
 const ItemContainer = styled.div`
   border: 2px solid blue;
@@ -43,31 +44,31 @@ const Options = styled.div`
   gap: 1rem;
 `;
 
-const Quantity = styled.div`
-  ${'' /* border: 2px solid purple; */}
-  display: flex;
-  ${'' /* gap: 0.5rem; */}
-  align-items: center;
-`;
+// const Quantity = styled.div`
+//   ${'' /* border: 2px solid purple; */}
+//   display: flex;
+//   ${'' /* gap: 0.5rem; */}
+//   align-items: center;
+// `;
 
-const Button = styled.button`
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  border: none;
-  cursor: pointer;
-  background-color: ${colors.orange6};
-  color: white;
-  align-self: stretch;
-  font-weight: 500;
-`;
+// const Button = styled.button`
+//   padding: 0.25rem 0.5rem;
+//   border-radius: 0.25rem;
+//   border: none;
+//   cursor: pointer;
+//   background-color: ${colors.orange6};
+//   color: white;
+//   align-self: stretch;
+//   font-weight: 500;
+// `;
 
-const Input = styled.input`
-  width: 3rem;
-  align-self: stretch;
-  border-radius: 0.25rem;
-  border: none;
-  background-color: ${colors.orange2};
-`;
+// const Input = styled.input`
+//   width: 3rem;
+//   align-self: stretch;
+//   border-radius: 0.25rem;
+//   border: none;
+//   background-color: ${colors.orange2};
+// `;
 
 const DeleteButton = styled.button`
   display: flex;
@@ -78,7 +79,11 @@ const DeleteButton = styled.button`
   border-radius: 0.25rem;
   background-color: #d32f2f;
   color: white;
-  font-weight: 500;  
+  font-weight: 500;
+
+  &:hover {
+    background-color: #b71c1c;
+  }  
 
 `;
 
@@ -88,66 +93,31 @@ const Price = styled.div`
 
 
 const CartItem = ({pdt}) => {
-  let cartPdt = pdt;
-    // let pdt = {
-    // "id": 1,
-    // "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-    // "price": 109.95,
-    // "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-    // "category": "men's clothing",
-    // "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-    // "rating": {
-    //   "rate": 3.9,
-    //   "count": 120
-    // }};
+  const dispatch = useDispatch();
 
-    // console.log(props);
-
-    let x = useSelector(state => state.cart);
-    console.log(x);
-    const dispatch = useDispatch();
-
-    const getCartData = async() => {
-      let URL = 'https://fakestoreapi.com/products/' + cartPdt.id;
-      let resp = await fetch(URL);
-      let pdt = await resp.json();
-      dispatch(addToCartForDisplay(pdt));
-    }
-
-    // let pdt1 = {id:'' ,
-    // "title": "",
-    // "price": '',
-    // "description": "",
-    // "category": "",
-    // "image": "",
-    // "rating": {
-    //   "rate": '',
-    //   "count": ''
-    // }}
-
-    useEffect (() => {
-      getCartData()
-    }, [])
-  
-    let pdt1 = useSelector(state => state.tempCart)[0];
+   const removeFromCart = () => {
+     console.log('delete');
+      dispatch(deleteFromCart(pdt.id));
+   }
     
   return (
     <ItemContainer>
-    {!pdt1? <h1>Empty</h1>:
+    
     <>
-    <Img src={pdt1.image} />
+    <Img src={pdt.image} />
     <Desc>
       <Title>
-      <Link to='#'>{pdt1.title}</Link>
+      <Link to='#'>{pdt.title}</Link>
       </Title>
       <Options>
-      <Quantity>
+      {/* <Quantity>
        Qty:<span style={{padding: '0.5rem'}}></span>
         <Button>-</Button>
         <Input type="number" />
         <Button>+</Button>
-        </Quantity>
-        <DeleteButton><DeleteOutlineOutlinedIcon />Remove from Cart</DeleteButton>
+        </Quantity> */}
+        <QuantityDisplayer pdt={pdt}/>
+        <DeleteButton onClick={removeFromCart}><DeleteOutlineOutlinedIcon />Remove from Cart</DeleteButton>
       </Options>
     </Desc>
     <Price>
@@ -157,8 +127,6 @@ const CartItem = ({pdt}) => {
       <div>200</div>
     </Price>
     </>
-    }
-
     </ItemContainer>
   )
 }

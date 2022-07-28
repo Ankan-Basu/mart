@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import colors from './colors';
 import Offers from './Offers';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectProduct } from '../redux/actions/pdtActions';
+import { addToCart, changeQnInCart, selectProduct, deleteFromCart } from '../redux/actions/pdtActions';
+import QuantityDisplayer from './QuantityDisplayer';
 
 const Container = styled.div`
   display: flex;
@@ -59,24 +60,27 @@ const Price = styled.h3`
   font-size: 36px;
 `;
 
-const Quantity = styled.div`
-  ${'' /* border: 2px solid purple; */}
-  display: flex;
-  ${'' /* gap: 0.5rem; */}
-  align-items: center;
-`;
+// const Quantity = styled.div`
+//   ${'' /* border: 2px solid purple; */}
+//   display: flex;
+//   ${'' /* gap: 0.5rem; */}
+//   align-items: center;
+//   margin-top: 2rem;
 
-const QnButton = styled.button`
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.25rem;
-  border: none;
-  cursor: pointer;
-  background-color: ${colors.orange6};
-  color: white;
-  align-self: stretch;
-  font-weight: 500;
-  font-size: 18px;
-`;
+//   display: ${props => props.included?'flex':'none'};
+// `;
+
+// const QnButton = styled.button`
+//   padding: 0.25rem 0.5rem;
+//   border-radius: 0.25rem;
+//   border: none;
+//   cursor: pointer;
+//   background-color: ${colors.orange6};
+//   color: white;
+//   align-self: stretch;
+//   font-weight: 500;
+//   font-size: 18px;
+// `;
 
 const Button = styled.button`
   padding: 0.5rem;
@@ -90,35 +94,57 @@ const Button = styled.button`
   font-size: 18px;
   margin-top: 2rem;
 
+  display: ${props => props.included?'none':'block'};
+
 `;
 
 
-const Input = styled.input`
-  width: 3rem;
-  align-self: stretch;
-  border-radius: 0.25rem;
-  border: none;
-  background-color: ${colors.orange2};
-`;
+// const Input = styled.input`
+//   width: 3rem;
+//   align-self: stretch;
+//   border-radius: 0.25rem;
+//   border: none;
+//   background-color: ${colors.orange2};
+// `;
 
+// const QuantityContainer =  styled(QuantityDisplayer)`
+//   ${'' /* display: block; */}
+//   display: ${props => props.included?'flex':'none'};
+//   ${'' /* border: 2px solid green; */}
+// `;
 
 const ProductDetails = () => {
-  // let pdt = {
-  //   "id": 1,
-  //   "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-  //   "price": 109.95,
-  //   "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-  //   "category": "men's clothing",
-  //   "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-  //   "rating": {
-  //     "rate": 3.9,
-  //     "count": 120
-  //   }
-  // };
-
-  
-
   let pdt = useSelector(state => state.product);
+
+  const dispatch = useDispatch();
+  
+  const addToCartHandler = () => {
+    dispatch(addToCart(pdt.id, 1));
+  }
+
+  let alreadyInCart = useSelector(state => state.cart.cart);
+  let alreadyIncluded = false;
+  let quantity = 0;
+
+  alreadyInCart.forEach((product) => {
+    if (product.id === pdt.id) {
+      alreadyIncluded = true;
+      quantity = product.quantity;
+    }
+    return;
+  })
+
+  // const increaseQuantity = () => {
+  //   dispatch(changeQnInCart(pdt.id, quantity+1));
+  // }
+
+  // const decreaseQuantity = () => {
+  //   if (quantity === 1) {
+  //     dispatch(deleteFromCart(pdt.id));
+  //   } else {
+  //     dispatch(changeQnInCart(pdt.id, quantity-1));
+  //   }
+  // }
  
   return (
     <Container>
@@ -145,13 +171,15 @@ const ProductDetails = () => {
           ${pdt.price}
         </Price>
         <Offers />
-        <Button>Add to Cart</Button>
-        <Quantity>
+        <Button onClick={addToCartHandler} included={alreadyIncluded}>Add to Cart</Button>
+        {/* <Quantity included={alreadyIncluded}>
           Qty:<span style={{ padding: '0.5rem' }}></span>
-          <QnButton>-</QnButton>
-          <Input type="number" />
-          <QnButton>+</QnButton>
-        </Quantity>
+          <QnButton onClick={decreaseQuantity}>-</QnButton>
+          <Input type="number" value={1} />
+          <div>{quantity}</div>
+          <QnButton onClick={increaseQuantity}>+</QnButton>
+        </Quantity> */}
+        <QuantityDisplayer pdt={pdt} />
       </Right>
     </Container>
   )

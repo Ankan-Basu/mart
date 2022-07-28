@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import colors from './colors';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {linkStyle} from './style';
 // import colors from './colors';
+import { useDispatch, useSelector } from 'react-redux';
+import {addToCart} from '../redux/actions/pdtActions';
 
 const ProductContainer = styled.div`
   width: 300px;
@@ -79,11 +81,45 @@ const Button = styled.button`
   padding: 0.25rem;
   font-weight: 500;
 
+
   border-radius: 0.25rem;
-  border: none;
+  ${'' /* border: none; */}
+  border: 2px solid ${colors.orange6};
+
   cursor: pointer;
   background-color: ${colors.orange6};
   color: white;
+
+  &:hover {
+    background-color: ${colors.orange8};
+  }
+
+  display: ${(props) => props.included?'none':'flex'};
+`;
+
+const AltButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  justify-self: flex-end;
+  font-size 18px;
+  padding: 0.25rem;
+  font-weight: 500;
+
+  border-radius: 0.25rem;
+  border: none;
+  border: 2px solid ${colors.orange6};
+  cursor: pointer;
+  background-color: white; 
+  color: ${colors.orange6};
+
+  &: hover {
+    background-color: ${colors.orange6}; 
+    color: white;
+  }
+
+  display: ${(props) => props.included?'flex':'none'};
 `;
 
 const CustomLink = styled(Link)`
@@ -98,17 +134,26 @@ const CustomLink = styled(Link)`
 `;
 
 const Product = ({pdt}) => {
-  // let pdt = {
-  //   "id": 1,
-  //   "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-  //   "price": 109.95,
-  //   "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-  //   "category": "men's clothing",
-  //   "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-  //   "rating": {
-  //     "rate": 3.9,
-  //     "count": 120
-  //   }};
+  
+  const dispatch = useDispatch();
+  
+  const addToCartHandler = () => {
+    dispatch(addToCart(pdt.id, 1));
+  }
+
+  let alreadyInCart = useSelector(state => state.cart.cart);
+  let alreadyIncluded = false;
+  alreadyInCart.forEach((product) => {
+    if (product.id === pdt.id) {
+      alreadyIncluded = true;
+    }
+    return;
+  })
+
+  let navigate = useNavigate();
+  const goToCart = () => {
+    return navigate('/cart');
+  }
 
   return (
     <ProductContainer>
@@ -119,14 +164,16 @@ const Product = ({pdt}) => {
     <Details>
     <Title><CustomLink to={`/products/${pdt.id}`}>{pdt.title}</CustomLink></Title>
     <Price>${pdt.price}</Price>
-    {/* <Desc>{pdt.description}</Desc> */}
     <p><CustomLink to=''>{pdt.category}</CustomLink></p>
     <Rating>
     <Rate>{pdt.rating.rate} </Rate> 
     <Count>({pdt.rating.count} ratings)</Count>
     </Rating>
     </Details>
-    <Button><ShoppingCartOutlinedIcon />Add to Cart</Button>
+    <Button onClick={addToCartHandler} included={alreadyIncluded}><ShoppingCartOutlinedIcon />Add to Cart</Button>
+    {/* <Link to='/cart'> */}
+    <AltButton onClick={goToCart} included={alreadyIncluded}><ShoppingCartOutlinedIcon />View Cart</AltButton>
+    {/* </Link> */}
     </TextContainer>
     </ProductContainer>
   )

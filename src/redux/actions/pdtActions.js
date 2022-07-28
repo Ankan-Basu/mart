@@ -33,9 +33,33 @@ export const addToCart = (id, quantity=1) => {
   }
 }
 
-export const addToCartForDisplay = (product) => {
+export const deleteFromCart = (id) => {
   return {
-    type: "ADD_TO_CART_DISPLAY",
+    type: "DEL_FROM_CART",
+    payload: id
+  }
+}
+
+export const changeQnInCart = (id, quantity) => {
+  return {
+    type: "CHANGE_CART",
+    payload: {
+      id, quantity
+    }
+  }
+}
+
+
+export const displayInCart = (product) => {
+  return {
+    type: "DISPLAY_CART",
     payload: product
   }
 }
+
+export const clearDisplayInCart = () => {
+  return {
+    type: "CLEAR_DISPLAY_CART"
+  }
+}
+
